@@ -1,74 +1,67 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-//enum
-public enum PlayerDir{Right, Left, Up, Down}
+// enum
+public enum PlayerDir {Right, Left, Up, Down}
 public class PlayerController_Simple : MonoBehaviour
 {
     public static readonly int Hash_dirX = Animator.StringToHash("dirX");
     public static readonly int Hash_dirY = Animator.StringToHash("dirY");
     public static readonly int Hash_MovementType = Animator.StringToHash("MovementType");
-    public static readonly int Hash_ActionTriggerValue = Animator.StringToHash("ActionTrigger");
-    public static readonly int Hash_ActionIdValue = Animator.StringToHash("ActionId");
+
+    public static readonly int Hash_ActionTrigger = Animator.StringToHash("ActionTrigger");
+    public static readonly int Hash_ActionId = Animator.StringToHash("ActionId");
     
-    #region Inspector Variables
+    #region Inspektor Variables
     [Header("Player States")]
     public PlayerDir playerDir = PlayerDir.Down;
     
+    
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float accelerationtime = 0.1f; 
     
-    [SerializeField] private float accelerationtime = 0.1f; //Player erreicht in einer bestimmten Zeit den Maximum der Geschwindigkeit
+    [Header("Roll")]
+    [SerializeField] private float rollForce = 5f;
     
     [Header("Animations")]
     [SerializeField] private Animator[] anim;
-    
-    [Header("Actions")]
-    private bool isRolling;
-    public float rollPower = 5f;
-    public bool canRoll;
-    
-    
+
     #endregion
     
     #region Private Variables
-
     public InputSystem_Actions inputActions;
     private InputAction moveAction;
     private InputAction rollAction;
     
     private Rigidbody2D rb;
     
-    
     private Vector2 moveInput;
+    private bool isRolling;
     #endregion
     
     #region Unity Event Functions
-
     private void Awake()
     {
-        rb=GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         
-        
-        inputActions= new InputSystem_Actions();
+        inputActions = new InputSystem_Actions();
         moveAction = inputActions.Player.Move;
         rollAction = inputActions.Player.Roll;
-        
-        canRoll = true;
-    }
-    
-    private void OnEnable()
-    {
-    EnableInput();
-    moveAction.performed += MoveInput;
-    moveAction.canceled += MoveInput;
-    
-    rollAction.performed += Roll;
     }
 
+    private void OnEnable()
+    {
+        EnableInput();
+        moveAction.performed += MoveInput;
+        moveAction.canceled += MoveInput;
+        
+        rollAction.performed += RollInput;
+    }
+    
     void FixedUpdate()
     {
         Movement();
@@ -85,7 +78,8 @@ public class PlayerController_Simple : MonoBehaviour
         moveAction.performed -= MoveInput;
         moveAction.canceled -= MoveInput;
         
-        rollAction.performed -= Roll;   
+        rollAction.performed -= RollInput;
+
     }
 
     public void EnableInput()
@@ -97,18 +91,50 @@ public class PlayerController_Simple : MonoBehaviour
     {
         inputActions.Disable();
     }
+
     #endregion
     
     #region Movement
-    
-    void MoveInput(InputAction.CallbackContext ctx)
+    void MoveInput(InputAction.CallbackContext context)
     {
-        moveInput = ctx.ReadValue<Vector2>().normalized;
+        moveInput = context.ReadValue<Vector2>().normalized;
         PlayerDirection();
     }
 
+    void RollInput(InputAction.CallbackContext context)
+    {
+        isRolling = true;
+        
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 1);
+        }
+
+        switch (playerDir)
+        {
+            case PlayerDir.Right:
+                rb.linearVelocity = (Vector2.right * rollForce);
+                break;
+            
+            case PlayerDir.Left:
+                rb.AddForce(Vector2.left * rollForce, ForceMode2D.Impulse);
+                break;
+            
+            
+            case PlayerDir.Up:
+                rb.AddForce(Vector2.up * rollForce, ForceMode2D.Impulse);
+                break;
+            
+            case PlayerDir.Down:
+                rb.AddForce(Vector2.down * rollForce, ForceMode2D.Impulse);
+                break;
+        }
+    }
+    
     void Movement()
     {
+        if (isRolling) return;
         Vector2 targetVelocity = moveInput * walkSpeed; // (0,1) - (X:0,Y:5)
         Vector2 currentVelocity = rb.linearVelocity;
         
@@ -120,10 +146,13 @@ public class PlayerController_Simple : MonoBehaviour
         if (moveInput.x < 0)
         {
             playerDir = PlayerDir.Left;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else if (moveInput.x > 0)
         {
             playerDir = PlayerDir.Right;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+
         }
 
         if (moveInput.y > 0)
@@ -137,54 +166,13 @@ public class PlayerController_Simple : MonoBehaviour
     }
     #endregion
 
-    #region Roll
-    private void Roll(InputAction.CallbackContext ctx)
-    {
-        if (canRoll)
-        {
-            //canRoll = false;
-            Vector2 rollDirection = GetRollDirection();
-            rb.AddForce(rollDirection * rollPower, ForceMode2D.Impulse);
-            
-            AnimatorAction(GetRollDirectionId());
-        }
-    }
-
-    private Vector2 GetRollDirection()
-    {
-        switch (playerDir)
-        {
-            case PlayerDir.Up: return Vector2.up;
-            case PlayerDir.Down: return Vector2.down;
-            case PlayerDir.Left: return Vector2.left;
-            case PlayerDir.Right: return Vector2.right;
-            default: return Vector2.zero;
-        }
-    }
-    
-    private int GetRollDirectionId()
-    {
-        switch (playerDir)
-        {
-            case PlayerDir.Up: return 0;
-            case PlayerDir.Down: return 1;
-            case PlayerDir.Left: return 2;
-            case PlayerDir.Right: return 3;
-            default: return -1;
-        }
-    }
-    
-
-    #endregion
-    
     #region Animations
 
     void UpdateAnimator()
     {
         for (int i = 0; i < anim.Length; i++)
         {
-            if (moveInput !=
-                Vector2.zero) //Verhindert das der Spieler nach dem Bewegen sich in eine bestimmte ungewollte Richtung dreht. 
+            if (moveInput != Vector2.zero)
             {
                 anim[i].SetFloat(Hash_dirX, moveInput.x);
                 anim[i].SetFloat(Hash_dirY, moveInput.y);
@@ -193,14 +181,11 @@ public class PlayerController_Simple : MonoBehaviour
             anim[i].SetFloat(Hash_MovementType, moveInput != Vector2.zero ? 1 : 0);
         }
     }
-    
-    void AnimatorAction(int actionId)
+
+    public void EndRolling()
     {
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].SetTrigger(Hash_ActionTriggerValue);
-            anim[i].SetInteger(Hash_ActionIdValue, actionId);
-        }
+        isRolling = false;
     }
+    
     #endregion
 }
