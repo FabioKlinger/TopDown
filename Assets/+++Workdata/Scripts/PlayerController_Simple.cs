@@ -36,11 +36,14 @@ public class PlayerController_Simple : MonoBehaviour
     public InputSystem_Actions inputActions;
     private InputAction moveAction;
     private InputAction rollAction;
+    private InputAction attackAction;
     
     private Rigidbody2D rb;
     
     private Vector2 moveInput;
+    private Vector2 lastMoveInput;
     private bool isRolling;
+    private bool isAttacking;
     #endregion
     
     #region Unity Event Functions
@@ -51,6 +54,7 @@ public class PlayerController_Simple : MonoBehaviour
         inputActions = new InputSystem_Actions();
         moveAction = inputActions.Player.Move;
         rollAction = inputActions.Player.Roll;
+        attackAction = inputActions.Player.Attack;
     }
 
     private void OnEnable()
@@ -60,6 +64,8 @@ public class PlayerController_Simple : MonoBehaviour
         moveAction.canceled += MoveInput;
         
         rollAction.performed += RollInput;
+        attackAction.performed += AttackInput;
+        
     }
     
     void FixedUpdate()
@@ -80,6 +86,7 @@ public class PlayerController_Simple : MonoBehaviour
         
         rollAction.performed -= RollInput;
 
+        attackAction.performed -= AttackInput;
     }
 
     public void EnableInput()
@@ -133,6 +140,18 @@ public class PlayerController_Simple : MonoBehaviour
                 break;
         }
     }
+
+    void AttackInput(InputAction.CallbackContext context)
+    {
+        if (isAttacking) return;
+
+        isAttacking = true;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 2);
+        }
+    }
     
     void Movement()
     {
@@ -179,6 +198,8 @@ public class PlayerController_Simple : MonoBehaviour
             {
                 anim[i].SetFloat(Hash_dirX, moveInput.x);
                 anim[i].SetFloat(Hash_dirY, moveInput.y);
+
+                lastMoveInput = moveInput;
             }
 
             anim[i].SetFloat(Hash_MovementType, moveInput != Vector2.zero ? 1 : 0);
@@ -188,6 +209,16 @@ public class PlayerController_Simple : MonoBehaviour
     public void EndRolling()
     {
         isRolling = false;
+    }
+    
+    public void EndAttacking()
+    {
+        isAttacking = false;
+    }
+
+    public Vector2 GetMoveInput()
+    {
+        return lastMoveInput;
     }
     
     #endregion
