@@ -103,6 +103,8 @@ public class PlayerController_Simple : MonoBehaviour
 
     void RollInput(InputAction.CallbackContext context)
     {
+        if (isRolling) return;
+        
         isRolling = true;
         
         for (int i = 0; i < anim.Length; i++)
@@ -118,16 +120,16 @@ public class PlayerController_Simple : MonoBehaviour
                 break;
             
             case PlayerDir.Left:
-                rb.AddForce(Vector2.left * rollForce, ForceMode2D.Impulse);
+                rb.linearVelocity = (Vector2.left * rollForce);
                 break;
             
             
             case PlayerDir.Up:
-                rb.AddForce(Vector2.up * rollForce, ForceMode2D.Impulse);
+                rb.linearVelocity = (Vector2.up * rollForce);
                 break;
             
             case PlayerDir.Down:
-                rb.AddForce(Vector2.down * rollForce, ForceMode2D.Impulse);
+                rb.linearVelocity = (Vector2.down * rollForce);
                 break;
         }
     }
@@ -135,6 +137,7 @@ public class PlayerController_Simple : MonoBehaviour
     void Movement()
     {
         if (isRolling) return;
+        
         Vector2 targetVelocity = moveInput * walkSpeed; // (0,1) - (X:0,Y:5)
         Vector2 currentVelocity = rb.linearVelocity;
         
