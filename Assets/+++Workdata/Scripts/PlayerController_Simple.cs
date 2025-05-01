@@ -37,6 +37,7 @@ public class PlayerController_Simple : MonoBehaviour
     private InputAction moveAction;
     private InputAction rollAction;
     private InputAction attackAction;
+    private InputAction pickaxeAction;
     
     private Rigidbody2D rb;
     
@@ -44,6 +45,7 @@ public class PlayerController_Simple : MonoBehaviour
     private Vector2 lastMoveInput;
     private bool isRolling;
     private bool isAttacking;
+    private bool isPickaxe;
     #endregion
     
     #region Unity Event Functions
@@ -55,6 +57,7 @@ public class PlayerController_Simple : MonoBehaviour
         moveAction = inputActions.Player.Move;
         rollAction = inputActions.Player.Roll;
         attackAction = inputActions.Player.Attack;
+        pickaxeAction = inputActions.Player.Pickaxe;
     }
 
     private void OnEnable()
@@ -65,6 +68,7 @@ public class PlayerController_Simple : MonoBehaviour
         
         rollAction.performed += RollInput;
         attackAction.performed += AttackInput;
+        pickaxeAction.performed += PickaxeInput;
         
     }
     
@@ -87,6 +91,8 @@ public class PlayerController_Simple : MonoBehaviour
         rollAction.performed -= RollInput;
 
         attackAction.performed -= AttackInput;
+        
+        pickaxeAction.performed -= PickaxeInput;
     }
 
     public void EnableInput()
@@ -153,6 +159,18 @@ public class PlayerController_Simple : MonoBehaviour
         }
     }
     
+    void PickaxeInput(InputAction.CallbackContext context)
+    {
+        if (isPickaxe) return;
+
+        isPickaxe = true;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 3);
+        }
+    }
+    
     void Movement()
     {
         if (isRolling) return;
@@ -216,6 +234,10 @@ public class PlayerController_Simple : MonoBehaviour
         isAttacking = false;
     }
 
+    public void EndPickaxe()
+    {
+        isPickaxe = false;
+    }
     public Vector2 GetMoveInput()
     {
         return lastMoveInput;
