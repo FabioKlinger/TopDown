@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Bow",
+                    "type": "Button",
+                    "id": "52452e7f-faf8-4f66-a21b-20d611f36656",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -523,7 +532,7 @@
                 {
                     "name": "",
                     "id": "e170e879-b6a7-493c-8c8a-9c1b99e0cd1c",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -550,6 +559,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Can",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8d3d3c5-6184-498e-91d8-cd6fa0ca1fd7",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

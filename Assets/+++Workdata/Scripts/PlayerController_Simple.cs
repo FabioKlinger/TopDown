@@ -40,6 +40,7 @@ public class PlayerController_Simple : MonoBehaviour
     private InputAction pickaxeAction;
     private InputAction axeAction;
     private InputAction canAction;
+    private InputAction bowAction;
     
     private Rigidbody2D rb;
     
@@ -50,6 +51,7 @@ public class PlayerController_Simple : MonoBehaviour
     private bool isPickaxe;
     private bool isAxe;
     private bool isCan;
+    private bool isBow;
     #endregion
     
     #region Unity Event Functions
@@ -64,6 +66,7 @@ public class PlayerController_Simple : MonoBehaviour
         pickaxeAction = inputActions.Player.Pickaxe;
         axeAction = inputActions.Player.Axe;
         canAction = inputActions.Player.Can;
+        bowAction = inputActions.Player.Bow;
     }
 
     private void OnEnable()
@@ -81,6 +84,8 @@ public class PlayerController_Simple : MonoBehaviour
         axeAction.performed += AxeInput;
         
         canAction.performed += CanInput;
+        
+        bowAction.performed += BowInput;
         
     }
     
@@ -109,6 +114,8 @@ public class PlayerController_Simple : MonoBehaviour
         axeAction.performed -= AxeInput;
         
         canAction.performed -= CanInput;
+        
+        bowAction.performed -= BowInput;
     }
 
     public void EnableInput()
@@ -211,6 +218,18 @@ public class PlayerController_Simple : MonoBehaviour
         }
     }
     
+    void BowInput(InputAction.CallbackContext context)
+    {
+        if (isBow) return;
+
+        isBow = true;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 6);
+        }
+    }
+    
     void Movement()
     {
         if (isRolling) return;
@@ -287,6 +306,11 @@ public class PlayerController_Simple : MonoBehaviour
     public void EndCan()
     {
         isCan = false;
+    }
+    
+    public void EndBow()
+    {
+        isBow = false;
     }
     public Vector2 GetMoveInput()
     {

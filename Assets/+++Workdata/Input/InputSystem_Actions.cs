@@ -207,6 +207,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bow"",
+                    ""type"": ""Button"",
+                    ""id"": ""52452e7f-faf8-4f66-a21b-20d611f36656"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -609,7 +618,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e170e879-b6a7-493c-8c8a-9c1b99e0cd1c"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -636,6 +645,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Can"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8d3d3c5-6184-498e-91d8-cd6fa0ca1fd7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1236,6 +1256,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
         m_Player_Axe = m_Player.FindAction("Axe", throwIfNotFound: true);
         m_Player_Can = m_Player.FindAction("Can", throwIfNotFound: true);
+        m_Player_Bow = m_Player.FindAction("Bow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1342,6 +1363,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pickaxe;
     private readonly InputAction m_Player_Axe;
     private readonly InputAction m_Player_Can;
+    private readonly InputAction m_Player_Bow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1405,6 +1427,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Can".
         /// </summary>
         public InputAction @Can => m_Wrapper.m_Player_Can;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Bow".
+        /// </summary>
+        public InputAction @Bow => m_Wrapper.m_Player_Bow;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1470,6 +1496,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Can.started += instance.OnCan;
             @Can.performed += instance.OnCan;
             @Can.canceled += instance.OnCan;
+            @Bow.started += instance.OnBow;
+            @Bow.performed += instance.OnBow;
+            @Bow.canceled += instance.OnBow;
         }
 
         /// <summary>
@@ -1520,6 +1549,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Can.started -= instance.OnCan;
             @Can.performed -= instance.OnCan;
             @Can.canceled -= instance.OnCan;
+            @Bow.started -= instance.OnBow;
+            @Bow.performed -= instance.OnBow;
+            @Bow.canceled -= instance.OnBow;
         }
 
         /// <summary>
@@ -1911,6 +1943,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCan(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Bow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBow(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

@@ -8,7 +8,7 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     public GameObject pickaxe;
     public GameObject axe;
     public GameObject can;
-
+    public GameObject bow;
     
     public void Start_Rh_SwordAttack()
     {
@@ -25,6 +25,9 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     {
         playerController.EndAttacking();
         playerController.EndPickaxe();
+        playerController.EndCan();
+        playerController.EndAxe();
+        playerController.EndBow();
         sword_rh.SetActive(false);
     }
     
@@ -45,6 +48,7 @@ public class PlayerAnimationBehaviour : MonoBehaviour
         playerController.EndAttacking();
         playerController.EndCan();
         playerController.EndAxe();
+        playerController.EndBow();
         pickaxe.SetActive(false);
     }
     
@@ -65,6 +69,7 @@ public class PlayerAnimationBehaviour : MonoBehaviour
         playerController.EndPickaxe();
         playerController.EndAttacking();
         playerController.EndCan();
+        playerController.EndBow();
         axe.SetActive(false);
     }
     
@@ -85,9 +90,30 @@ public class PlayerAnimationBehaviour : MonoBehaviour
         playerController.EndAxe();
         playerController.EndPickaxe();
         playerController.EndAttacking();
+        playerController.EndBow();
         can.SetActive(false);
     }
     
+    public void Start_Rh_Bow()
+    {
+        Vector2 currentMoveInput = playerController.GetMoveInput();
+        
+        bow.SetActive(true);
+        bow.GetComponent<Animator>().SetFloat("dirX", currentMoveInput.x);
+        bow.GetComponent<Animator>().SetFloat("dirY", currentMoveInput.y);
+
+        
+    }
+    
+    public void End_Rh_Bow()
+    {
+        playerController.EndBow();
+        playerController.EndCan();
+        playerController.EndAxe();
+        playerController.EndPickaxe();
+        playerController.EndAttacking();
+        bow.SetActive(false);
+    }
     
     
     
