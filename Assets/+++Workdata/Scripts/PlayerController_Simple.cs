@@ -38,6 +38,8 @@ public class PlayerController_Simple : MonoBehaviour
     private InputAction rollAction;
     private InputAction attackAction;
     private InputAction pickaxeAction;
+    private InputAction axeAction;
+    private InputAction canAction;
     
     private Rigidbody2D rb;
     
@@ -46,6 +48,8 @@ public class PlayerController_Simple : MonoBehaviour
     private bool isRolling;
     private bool isAttacking;
     private bool isPickaxe;
+    private bool isAxe;
+    private bool isCan;
     #endregion
     
     #region Unity Event Functions
@@ -58,6 +62,8 @@ public class PlayerController_Simple : MonoBehaviour
         rollAction = inputActions.Player.Roll;
         attackAction = inputActions.Player.Attack;
         pickaxeAction = inputActions.Player.Pickaxe;
+        axeAction = inputActions.Player.Axe;
+        canAction = inputActions.Player.Can;
     }
 
     private void OnEnable()
@@ -67,8 +73,14 @@ public class PlayerController_Simple : MonoBehaviour
         moveAction.canceled += MoveInput;
         
         rollAction.performed += RollInput;
+        
         attackAction.performed += AttackInput;
+        
         pickaxeAction.performed += PickaxeInput;
+        
+        axeAction.performed += AxeInput;
+        
+        canAction.performed += CanInput;
         
     }
     
@@ -93,6 +105,10 @@ public class PlayerController_Simple : MonoBehaviour
         attackAction.performed -= AttackInput;
         
         pickaxeAction.performed -= PickaxeInput;
+        
+        axeAction.performed -= AxeInput;
+        
+        canAction.performed -= CanInput;
     }
 
     public void EnableInput()
@@ -171,6 +187,30 @@ public class PlayerController_Simple : MonoBehaviour
         }
     }
     
+    void AxeInput(InputAction.CallbackContext context)
+    {
+        if (isAxe) return;
+
+        isAxe = true;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 4);
+        }
+    }
+    
+    void CanInput(InputAction.CallbackContext context)
+    {
+        if (isCan) return;
+
+        isCan = true;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            anim[i].SetTrigger(Hash_ActionTrigger);
+            anim[i].SetInteger(Hash_ActionId, 5);
+        }
+    }
+    
     void Movement()
     {
         if (isRolling) return;
@@ -237,6 +277,16 @@ public class PlayerController_Simple : MonoBehaviour
     public void EndPickaxe()
     {
         isPickaxe = false;
+    }
+    
+    public void EndAxe()
+    {
+        isAxe = false;
+    }
+    
+    public void EndCan()
+    {
+        isCan = false;
     }
     public Vector2 GetMoveInput()
     {

@@ -189,6 +189,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Axe"",
+                    ""type"": ""Button"",
+                    ""id"": ""ace7d037-b1fa-4f90-bc34-322b75ce1d17"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Can"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2b0effa-3336-400c-b535-aefd7b04d845"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -596,6 +614,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pickaxe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c279925b-7dac-4441-8751-eb803adfe1e5"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b027ef50-b3a5-4775-b343-be08ecc91617"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Can"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1194,6 +1234,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_Pickaxe = m_Player.FindAction("Pickaxe", throwIfNotFound: true);
+        m_Player_Axe = m_Player.FindAction("Axe", throwIfNotFound: true);
+        m_Player_Can = m_Player.FindAction("Can", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1298,6 +1340,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_Pickaxe;
+    private readonly InputAction m_Player_Axe;
+    private readonly InputAction m_Player_Can;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1353,6 +1397,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Pickaxe".
         /// </summary>
         public InputAction @Pickaxe => m_Wrapper.m_Player_Pickaxe;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Axe".
+        /// </summary>
+        public InputAction @Axe => m_Wrapper.m_Player_Axe;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Can".
+        /// </summary>
+        public InputAction @Can => m_Wrapper.m_Player_Can;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1412,6 +1464,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pickaxe.started += instance.OnPickaxe;
             @Pickaxe.performed += instance.OnPickaxe;
             @Pickaxe.canceled += instance.OnPickaxe;
+            @Axe.started += instance.OnAxe;
+            @Axe.performed += instance.OnAxe;
+            @Axe.canceled += instance.OnAxe;
+            @Can.started += instance.OnCan;
+            @Can.performed += instance.OnCan;
+            @Can.canceled += instance.OnCan;
         }
 
         /// <summary>
@@ -1456,6 +1514,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pickaxe.started -= instance.OnPickaxe;
             @Pickaxe.performed -= instance.OnPickaxe;
             @Pickaxe.canceled -= instance.OnPickaxe;
+            @Axe.started -= instance.OnAxe;
+            @Axe.performed -= instance.OnAxe;
+            @Axe.canceled -= instance.OnAxe;
+            @Can.started -= instance.OnCan;
+            @Can.performed -= instance.OnCan;
+            @Can.canceled -= instance.OnCan;
         }
 
         /// <summary>
@@ -1833,6 +1897,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPickaxe(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Axe" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAxe(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Can" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCan(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

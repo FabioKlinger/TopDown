@@ -35,7 +35,7 @@ BlendTree:
   m_Name: Movement Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1af62ecd94b7c46468b9723796cc7441, type: 2}
+    m_Motion: {fileID: 7400000, guid: 99870e140e2f7ef4aa41134d16793deb, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -43,7 +43,7 @@ BlendTree:
     m_DirectBlendParameter: dirX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 587fa6cdbbaf33247b774025e4efb68c, type: 2}
+    m_Motion: {fileID: 7400000, guid: fd7020e4f0a4dea4896c0c5b41262a7f, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -51,7 +51,7 @@ BlendTree:
     m_DirectBlendParameter: dirX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 70af9ef4d35f5384fa33b5a91dc99285, type: 2}
+    m_Motion: {fileID: 7400000, guid: 1168561ae0b145e45bfe332468dbfafe, type: 2}
     m_Threshold: 2
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -59,7 +59,7 @@ BlendTree:
     m_DirectBlendParameter: dirX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 70af9ef4d35f5384fa33b5a91dc99285, type: 2}
+    m_Motion: {fileID: 7400000, guid: 1168561ae0b145e45bfe332468dbfafe, type: 2}
     m_Threshold: 3
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -79,7 +79,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Iron_Pickaxe
+  m_Name: Iron_Axe
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: dirX
