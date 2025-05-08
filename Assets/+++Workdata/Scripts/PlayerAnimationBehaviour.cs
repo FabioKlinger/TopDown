@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimationBehaviour : MonoBehaviour
 {
-    public PlayerController_Simple playerController;
+    public PlayerController playerController;
 
     public GameObject sword_rh;
     public GameObject pickaxe;
