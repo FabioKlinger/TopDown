@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,7 +139,7 @@ TextureImporter:
         width: 13
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -161,7 +161,7 @@ TextureImporter:
         width: 8
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,7 +183,7 @@ TextureImporter:
         width: 8
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -205,7 +205,7 @@ TextureImporter:
         width: 13
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -227,7 +227,7 @@ TextureImporter:
         width: 40
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -245,11 +245,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 57
-        y: 4
+        y: 31
         width: 30
-        height: 40
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -267,11 +267,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 105
-        y: 4
+        y: 31
         width: 30
-        height: 40
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -284,11 +284,121 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Bridge_Wood_7
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 24
+        width: 30
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e98a464954147eb4e9939a4f8ca3d414
+      internalID: 1427654509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bridge_Wood_8
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 5
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6cd90498fdfdf348b2056fc3ef2a41c
+      internalID: -88638847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bridge_Wood_9
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 5
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdc927e94e4e4d498626a8ae4193dd9
+      internalID: 557578693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bridge_Wood_10
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 17
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 262a84f6d7d7f084aa6f6bcadeb8b0dd
+      internalID: 553041744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bridge_Wood_11
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 17
+        width: 30
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 364d88ad030e05546989e6ece70a086c
+      internalID: 535096391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ce1099326359a6f44b4105c84bda3660
     internalID: 0
     vertices: []
     indices: 
@@ -300,11 +410,16 @@ TextureImporter:
     nameFileIdTable:
       Bridge_Wood_0: -59419316028170722
       Bridge_Wood_1: 7506926857048110271
+      Bridge_Wood_10: 553041744
+      Bridge_Wood_11: 535096391
       Bridge_Wood_2: -6441673226787998722
       Bridge_Wood_3: -9142544502833899335
       Bridge_Wood_4: 4920015224640609776
       Bridge_Wood_5: -4785640308677409631
       Bridge_Wood_6: 3783615309959501221
+      Bridge_Wood_7: 1427654509
+      Bridge_Wood_8: -88638847
+      Bridge_Wood_9: 557578693
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
