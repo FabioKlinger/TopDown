@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     #region Inspektor Variables
     [Header("Player States")]
     public PlayerDir playerDir = PlayerDir.Down;
-    
+    public static Action InventoryAction;
     
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 5f;
@@ -177,7 +177,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-    
+    void InventoryInput(InputAction.CallbackContext context)
+    {
+        InventoryAction?.Invoke();
+    }
     #region Movement
     void MoveInput(InputAction.CallbackContext context)
     {
