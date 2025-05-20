@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private InputAction axeAction;
     private InputAction canAction;
     private InputAction bowAction;
+    private InputAction inventoryAction;
     
     private Rigidbody2D rb;
     
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
         canAction = inputActions.Player.Can;
         bowAction = inputActions.Player.Bow;
         interactAction = inputActions.Player.Interact;
+        inventoryAction = inputActions.Player.Inventory;
     }
 
     private void OnEnable()
@@ -93,6 +95,8 @@ public class PlayerController : MonoBehaviour
         bowAction.performed += BowInput;
         
         interactAction.performed += Interact;
+        
+        inventoryAction.performed += InventoryInput;
         
     }
     
@@ -125,6 +129,8 @@ public class PlayerController : MonoBehaviour
         bowAction.performed -= BowInput;
         
         interactAction.performed -= Interact;
+        
+        inventoryAction.performed -= InventoryInput;
     }
 
     public void EnableInput()

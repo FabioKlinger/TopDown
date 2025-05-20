@@ -7,12 +7,19 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public static event Action StateChanged;
+    public static GameState Instance;
 
     #region Inspector
 
     [SerializeField] private List<State> states;
+    
 
     #endregion
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public State Get(string id)
     {
@@ -128,5 +135,11 @@ public class GameState : MonoBehaviour
         // If we passed through the loop without ever returning false,
         // we reach the end of the function and can confidently return true.
         return true;
+    }
+    
+
+    public List<State> GetAllStates()
+    {
+        return states;
     }
 }
