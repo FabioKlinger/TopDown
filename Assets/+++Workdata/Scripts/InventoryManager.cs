@@ -48,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < currentStates.Count; i++) 
         {
             Item newItem = ItemManager.Instance.GetItemById(currentStates[i].id);
+            slots[i].RefreshSlot(newItem, currentStates[i].amount);
         }
 
         for (int i = currentStates.Count; i < slots.Count; i++)
