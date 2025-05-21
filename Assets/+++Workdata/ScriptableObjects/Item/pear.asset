@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: item_pear
   itemName: Pear
-  itemDescription: 
-  itemSprite: {fileID: -3911487379921220410, guid: 97d9e0aeee539d9459169903497294f9, type: 3}
+  itemDescription: Disgusting a pear . _.
+  itemSprite: {fileID: 7834711357408497286, guid: e266d48f1562cc0429da6d247b090328, type: 3}
