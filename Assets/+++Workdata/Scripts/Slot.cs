@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour
 
      public Image slotImage;
      public TextMeshProUGUI slotAmount;
-
+     
      private Toggle toggle;
 
      private void Awake()
@@ -45,7 +45,7 @@ public class Slot : MonoBehaviour
           if (!toggle.isOn) return;
 
           toggle.graphic.enabled = true;
-          //InventoryManager.Instance.ShowItemInformation;
+          InventoryManager.Instance.ShowItemInformation(item);
      }
 
      public void ForceHideHighlight()
