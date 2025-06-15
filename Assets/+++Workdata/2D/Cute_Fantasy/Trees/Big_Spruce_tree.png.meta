@@ -43,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -57,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -122,10 +122,10 @@ TextureImporter:
       name: Big_Spruce_tree_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 13
-        width: 16
-        height: 15
+        x: 25
+        y: 14
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,12 +144,12 @@ TextureImporter:
       name: Big_Spruce_tree_1
       rect:
         serializedVersion: 2
-        x: 77
-        y: 7
-        width: 38
-        height: 71
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 78
+        y: 8
+        width: 36
+        height: 69
+      alignment: 9
+      pivot: {x: 0.5, y: 0.11927574}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,10 +166,10 @@ TextureImporter:
       name: Big_Spruce_tree_2
       rect:
         serializedVersion: 2
-        x: 143
-        y: 21
-        width: 34
-        height: 57
+        x: 144
+        y: 22
+        width: 32
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 94249de1245a76041bf380ee197c59be
     internalID: 0
     vertices: []
     indices: 
