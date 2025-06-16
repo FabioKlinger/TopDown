@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private Transform player;
     private NavMeshAgent agent;
     public int followPauseTimer = 2;
-    
+    public Animator anim;
 
     private void OnEnable()
     {
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     {
         if (target == null) return;
         agent.SetDestination(target.position);
+        anim.SetBool("isRunning", agent.velocity.sqrMagnitude > 0.01f);
     }
 
     public void SetPlayerTarget(bool aggro)
