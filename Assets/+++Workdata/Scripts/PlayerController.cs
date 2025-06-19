@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     private bool isAxe;
     private bool isCan;
     private bool isBow;
+    public bool autoMovement = false;
+    
 
     private Interactable selectedInteractable;
     #endregion
@@ -113,6 +115,8 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (autoMovement) return;
+        
         UpdateAnimator();
     }
 
@@ -340,7 +344,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = Vector2.Lerp(currentVelocity, targetVelocity, Time.deltaTime / accelerationtime);
     }
 
-    void PlayerDirection()
+    public void PlayerDirection()
     {
         if (moveInput.x < 0)
         {
@@ -379,19 +383,61 @@ public class PlayerController : MonoBehaviour
     
     #region Animations
 
+
+
     void UpdateAnimator()
     {
+        if (autoMovement) return;
+
         for (int i = 0; i < anim.Length; i++)
         {
             if (moveInput != Vector2.zero)
             {
-                anim[i].SetFloat(Hash_dirX, moveInput.x);
                 anim[i].SetFloat(Hash_dirY, moveInput.y);
-
+                anim[i].SetFloat(Hash_dirX, moveInput.x);
                 lastMoveInput = moveInput;
             }
 
+
             anim[i].SetFloat(Hash_MovementType, moveInput != Vector2.zero ? 1 : 0);
+
+        }
+    }
+    
+    
+    public void UpdateAutoMoveAnimator(Vector3 direction)
+    {
+        if (!autoMovement) return;
+        for (int i = 0; i < anim.Length; i++)
+        {
+            if (direction != Vector3.zero)
+            {
+                anim[i].SetFloat(Hash_dirX, direction.x);
+                anim[i].SetFloat(Hash_dirY, direction.y);
+                
+            }
+
+            anim[i].SetFloat(Hash_MovementType, direction != Vector3.zero ? 1 : 0);
+        }
+        
+        if (direction.x < 0)
+        {
+            playerDir = PlayerDir.Left;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (direction.x > 0)
+        {
+            playerDir = PlayerDir.Right;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        
+        if (direction.y > 0)
+        {
+            playerDir = PlayerDir.Up;
+        }
+        else if (direction.y < 0)
+        {
+            playerDir = PlayerDir.Down;
         }
     }
 
@@ -431,4 +477,21 @@ public class PlayerController : MonoBehaviour
     
     #endregion
     
+    #region AutoMovement
+
+    public void AutoMovement(bool _autoMovement)
+    {
+        autoMovement = _autoMovement;
+        
+        if (autoMovement)
+        {
+            DisableInput();
+        }
+        else
+        {
+            EnableInput();
+        }
+    }
+
+    #endregion
 }
