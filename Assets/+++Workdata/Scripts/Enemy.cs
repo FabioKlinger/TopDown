@@ -11,6 +11,14 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     public int followPauseTimer = 2;
     public Animator anim;
+    
+    public static readonly int Hash_dirX = Animator.StringToHash("dirX");
+
+    public static readonly int Hash_dirY = Animator.StringToHash("dirY");
+
+    public static readonly int Hash_MovementValue = Animator.StringToHash("MovementValue");
+
+    
 
     private void OnEnable()
     {
@@ -29,9 +37,31 @@ public class Enemy : MonoBehaviour
     {
         if (target == null) return;
         agent.SetDestination(target.position);
-        anim.SetBool("isRunning", agent.velocity.sqrMagnitude > 0.01f);
+        
+            UpdateAnimator();
+        
+            if (agent.desiredVelocity.x < 1)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            if (agent.velocity.x > 1)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            
+            }
     }
 
+    public void UpdateAnimator()
+    {
+        if (agent.desiredVelocity != Vector3.zero)
+        {
+            anim.SetFloat(Hash_dirX, agent.desiredVelocity.x);
+            anim.SetFloat(Hash_dirY, agent.desiredVelocity.y);
+        }
+        anim.SetFloat(Hash_MovementValue, agent.desiredVelocity != Vector3.zero ? 1: 0);
+        
+    }
+    
     public void SetPlayerTarget(bool aggro)
     {
         if (aggro)

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Ink.Runtime;
 
 using TMPro;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +18,8 @@ public class DialogueBox : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI dialogueSpeaker;
 
+    [SerializeField] private Image avatarImage;
+    
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [SerializeField] private Button continueButton;
@@ -63,8 +65,18 @@ public class DialogueBox : MonoBehaviour
 
         dialogueText.SetText(line.text);
 
-        // Read out other information such as a speaker image;
+        if (line.speakerImage != null)
+        {
+            avatarImage.enabled = true;
+            avatarImage.sprite = line.speakerImage;
+        }
 
+        else
+        {
+            avatarImage.enabled = false;
+        }
+        // Read out other information such as a speaker image;
+        
         DisplayButtons(line.choices);
     }
 

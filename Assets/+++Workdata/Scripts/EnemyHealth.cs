@@ -8,6 +8,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField]private float startingHealth;
     public float currentHealth;
+    public Animator anim;
     
     private bool isDead;
     
@@ -32,11 +33,11 @@ public class EnemyHealth : MonoBehaviour
         {
             if(!isDead)
             {
-                //anim.SetTrigger("die");
+                
                 isDead = true;
 
                 DisableColliders();
-                
+                //anim.SetTrigger("die");
                 StartCoroutine(RemoveAfterDeath()); //Eine Coroutine ist eine Funktion, die über mehrere Frames hinweg ausgeführt wird. 
             }
         }

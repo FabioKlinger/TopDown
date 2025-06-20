@@ -675,8 +675,17 @@ MonoBehaviour:
   firstSelectedMenu: {fileID: 705277751}
   mainMenuContainer: {fileID: 705277751}
   optionsMenuContainer: {fileID: 2389969404272202494}
+  firstSelectedOption: {fileID: 0}
+  options_controlContainer: {fileID: 0}
+  controlButton: {fileID: 0}
+  options_grahpicContainer: {fileID: 0}
+  graphicButton: {fileID: 0}
+  options_soundContainer: {fileID: 0}
+  soundButton: {fileID: 0}
+  menuNumber: 0
   optionsApplyButton: {fileID: 8770143964822025273}
   menuIndex: 0
+  optionsIndex: 0
 --- !u!4 &511400134
 Transform:
   m_ObjectHideFlags: 0
@@ -1692,7 +1701,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 511400133}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: LoadGame
+        m_MethodName: loadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

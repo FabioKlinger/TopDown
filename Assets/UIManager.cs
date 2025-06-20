@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -95,7 +96,11 @@ public class UiManager : MonoBehaviour
         currentMenu = menuContainer;
         currentMenu.SetActive(true);
     }
-    
+
+    public void loadGame()
+    {
+        SceneManager.LoadScene(1);
+    }
     public void Menu_ShowMain()
     {
         menuIndex = 0;

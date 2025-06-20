@@ -89,6 +89,31 @@ public class Reactor : MonoBehaviour
             }
             onUnfulfilled.Invoke();
         }
+        else if (!fulfilled && !newFulfilled)
+        {
+            if (questEntry != null)
+            {
+                questEntry.SetQuestStatus(false);
+            }
+            onUnfulfilled.Invoke();
+        }
+        else if (fulfilled && newFulfilled)
+        {
+            print(4);
+            if (questEntry != null)
+            {
+                questEntry.SetQuestStatus(true);
+            }
+            onFulfilled.Invoke();
+        }
+        else
+        {
+            if (questEntry != null)
+            {
+                questEntry.SetQuestStatus(false);
+            }
+            onUnfulfilled.Invoke();
+        }
 
         // Overwrite the old result with the new for the next invocation of this function.
         fulfilled = newFulfilled;

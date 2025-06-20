@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour
 {
     private const string SpeakerSeparator = ":";
     private const string EscapedColon = "::";
-    private const string EscapedColonPlaceholder = "§";
+    private const string EscapedColonPlaceholder = "ยง";
     
     public static event Action DialogueClosed;
 
@@ -29,6 +29,10 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] private DialogueBox dialogueBox;
 
+    [Header("Avatar")] 
+    [SerializeField] private Sprite avatar_player01;
+    [SerializeField] private Sprite avatar_witch;
+   
     #endregion
 
     private Story inkStory;
@@ -162,6 +166,9 @@ public class DialogueController : MonoBehaviour
             case 2:
                 speaker = parts[0];
                 text = parts[1];
+                
+                // profile avatar action
+                
                 break;
             default:
                 Debug.LogWarning($"Ink dialogue line was split at more {SpeakerSeparator} than expected." +
@@ -176,8 +183,48 @@ public class DialogueController : MonoBehaviour
         {
             line.text = $"<i>{line.text}</i>";
         }
+        
+        // profile avatar action + if 
+        if (parts.Count > 1)
+        {
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (tags[i].Contains("avatar"))
+                {
+                    //avatar:XYZ
+                    List<string> avatar_parts = tags[i].Split(SpeakerSeparator).ToList();
+                    // part 0 = avatar
+                    // part 1 = XYZ
+                    line.speakerImage = GetAvatar(avatar_parts[1]);
+                    break;
+                }
+            }
+            
+            
+        }
 
         return line;
+    }
+
+    private Sprite GetAvatar(string avatarId)
+    {
+        switch (avatarId)
+        {
+            case "player_01":
+                return avatar_player01;
+                break;
+
+            case "witch":
+                return avatar_witch;
+                break;
+            
+            
+            default:
+                Debug.LogWarning($"The tag id {avatarId} has no specific case. " +
+                                 $"Please add the case to the switch-statement.");
+                return null;
+                break;
+        }
     }
 
     private bool CanContinue()
@@ -238,5 +285,5 @@ public struct DialogueLine
     public List<Choice> choices;
 
     // Here we can also add other information like speaker images or sounds.
-    //public Sprite speakerImage;
+    public Sprite speakerImage;
 }
