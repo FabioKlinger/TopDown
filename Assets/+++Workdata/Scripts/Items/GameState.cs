@@ -7,6 +7,8 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public static event Action StateChanged;
+    public static event Action<Item,int>  VisualizeItemUIElement;
+
     public static GameState Instance;
 
     #region Inspector
@@ -67,6 +69,9 @@ public class GameState : MonoBehaviour
             StateChanged?.Invoke();
         }
 
+        
+        VisualizeItemUIElement?.Invoke(ItemManager.Instance.GetItemById(id),amount);
+        
         StartCoroutine(CheckItems());
     }
     
