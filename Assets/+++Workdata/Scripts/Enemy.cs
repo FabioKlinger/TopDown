@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     public int followPauseTimer = 2;
     public Animator anim;
+    public EnemyHealth eh;
     
     public static readonly int Hash_dirX = Animator.StringToHash("dirX");
 
@@ -62,6 +63,7 @@ public class Enemy : MonoBehaviour
         
     }
     
+    
     public void SetPlayerTarget(bool aggro)
     {
         if (aggro)
@@ -80,4 +82,72 @@ public class Enemy : MonoBehaviour
         target = startTarget;
         
     }
+    
+    
+    #region AttackRegion
+
+    [Header("Attack Region")]
+    [SerializeField] private int damagePerHit = 1;
+    [SerializeField] private float attackInterval = 2f;
+
+    private Coroutine attackCoroutine;
+    private bool playerInRegion = false;
+    private PlayerInformation playerInfo;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")&&eh.isDead == false)
+        {
+            playerInRegion = true;
+
+            playerInfo = other.GetComponent<PlayerInformation>();
+
+            if (playerInfo != null)
+            {
+                attackCoroutine = StartCoroutine(AttackPlayer());
+            }
+            else
+            {
+                Debug.LogWarning("Player hat kein PlayerInformation Script");
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRegion = false;
+
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+                attackCoroutine = null;
+            }
+        }
+    }
+
+    private IEnumerator AttackPlayer()
+    {
+        while (playerInRegion)
+        {
+            if (!eh.isDead)
+            {
+                anim.SetTrigger("attack");
+                playerInfo.GetDamage(damagePerHit);
+                yield return new WaitForSeconds(attackInterval);
+            }
+            else
+            {
+                
+                eh.DisableColliders();
+                anim.SetTrigger("die");
+                eh.npcContainer.GetComponent<NavMeshAgent>().enabled = false;
+                StartCoroutine(eh.RemoveAfterDeath());
+                yield break; 
+            }
+        }
+    }
+
+    #endregion
 }

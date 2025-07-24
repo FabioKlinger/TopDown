@@ -16,8 +16,12 @@ public class UiManager : MonoBehaviour
     [Header("Ui Menus")] 
     [SerializeField] private GameObject mainMenuContainer;
     [SerializeField] private GameObject optionsMenuContainer;
+    [SerializeField] private GameObject loadContainer;
     //....
 
+    [Header("Loading")] 
+    [SerializeField]private Slider loadingSlider;
+    
     [Header("Options Menu")] 
     [SerializeField] private GameObject firstSelectedOption;
 
@@ -78,6 +82,52 @@ public class UiManager : MonoBehaviour
         gamepadRsAction.performed -= RsInput;
         gamepadLsAction.performed -= LsInput;
     }
+
+    
+    #region Loading
+    public void LoadLevelBtn(int levelToLoad)
+    {
+        Time.timeScale = 1f;  
+        loadContainer.SetActive(true);
+        StartCoroutine(LoadLevelASync(levelToLoad));
+    }
+
+    IEnumerator LoadLevelASync(int levelToLoad)
+    {
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
+        loadOperation.allowSceneActivation = false;
+
+        float timer = 0f;
+        float fakeDuration = 2f;
+        float displayedProgress = 0f;
+
+        while (!loadOperation.isDone)
+        {
+            timer += Time.deltaTime;
+
+            // Echten Fortschritt von Unity
+            float realProgress = Mathf.Clamp01(loadOperation.progress / 0.9f);
+
+            // Fake-Zeit-Fortschritt
+            float fakeProgress = Mathf.Clamp01(timer / fakeDuration);
+
+            // Der Zielwert für den Slider ist das Maximum von beidem (damit man echte Sprünge sieht)
+            float targetProgress = Mathf.Max(realProgress, fakeProgress);
+
+            // Smoothly auf targetProgress animieren, damit es nicht sofort springt
+            displayedProgress = Mathf.MoveTowards(displayedProgress, targetProgress, Time.deltaTime);
+
+            loadingSlider.value = displayedProgress;
+
+            if (displayedProgress >= 1f && realProgress >= 1f)
+            {
+                loadOperation.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
+    }
+    #endregion 
 
     public void SelectButton(Button button)
     {

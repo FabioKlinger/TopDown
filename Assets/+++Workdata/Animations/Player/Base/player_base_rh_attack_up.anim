@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -3502763652030838895, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
+      value: {fileID: -2981845286574036419, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
     - time: 0.083333336
-      value: {fileID: 6653521372087700522, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
+      value: {fileID: -7788624319470281706, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
     - time: 0.16666667
-      value: {fileID: 6575950642153376037, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
+      value: {fileID: -6084218201566942072, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
     - time: 0.25
-      value: {fileID: 812717919551247174, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
+      value: {fileID: -2938239205550241072, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -3502763652030838895, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
-    - {fileID: 6653521372087700522, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
-    - {fileID: 6575950642153376037, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
-    - {fileID: 812717919551247174, guid: cfe528eafbb350d49b10513aa281f13d, type: 3}
+    - {fileID: -2981845286574036419, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
+    - {fileID: -7788624319470281706, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
+    - {fileID: -6084218201566942072, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
+    - {fileID: -2938239205550241072, guid: 428dd4168377b7a49b3a8561aab4f133, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -81,6 +81,13 @@ AnimationClip:
   m_Events:
   - time: 0.083333336
     functionName: Start_Rh_SwordAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.083333336
+    functionName: atttackStepSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

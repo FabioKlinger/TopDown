@@ -237,44 +237,44 @@ public class PlayerController : MonoBehaviour
         }
     }
 #region Attack
-    void AttackInput(InputAction.CallbackContext context)
-    {
-        if (isAttacking) return;
-        boxCollider.enabled = true;
-        isAttacking = true;
-        for (int i = 0; i < anim.Length; i++)
-        {
-            if (EnemyInSight())
-                 {
-                     DamageEnemy();
-                 }
-            anim[i].SetTrigger(Hash_ActionTrigger);
-            anim[i].SetInteger(Hash_ActionId, 2);
-        }
-        boxCollider.enabled = false;
+void AttackInput(InputAction.CallbackContext context)
+{
+    if (isAttacking) return;
+    boxCollider.enabled = true;
+    isAttacking = true;
 
-        
+    var enemies = EnemiesInSight();
+    foreach (var animElem in anim)
+    {
+        animElem.SetTrigger(Hash_ActionTrigger);
+        animElem.SetInteger(Hash_ActionId, 2);
     }
 
-    private bool EnemyInSight()
+    foreach (var enemy in enemies)
     {
-        RaycastHit2D hit = 
-            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, 
-                new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
-                0, Vector2.left, 0, enemyLayer);
-        if (hit.collider != null)
-            enemyHealth = hit.transform.GetComponent<EnemyHealth>();
-        
-        return hit.collider != null;
+        enemy.TakeDamage(damage);
     }
 
-    void DamageEnemy()
+    boxCollider.enabled = false;
+}
+
+    private List<EnemyHealth> EnemiesInSight()
     {
-        if (EnemyInSight())
+        Collider2D[] hits = Physics2D.OverlapBoxAll(
+            boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+            new Vector2(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y),
+            0,
+            enemyLayer);
+
+        List<EnemyHealth> enemies = new List<EnemyHealth>();
+        foreach (var hit in hits)
         {
-            
-            enemyHealth.TakeDamage(damage);
+            EnemyHealth eh = hit.GetComponent<EnemyHealth>();
+            if (eh != null)
+                enemies.Add(eh);
         }
+
+        return enemies;
     }
     
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = System.Object;
 
 public class EnemyHealth : MonoBehaviour
@@ -9,8 +10,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]private float startingHealth;
     public float currentHealth;
     public Animator anim;
-    
-    private bool isDead;
+    public GameObject npcContainer;
+    public bool isDead;
     
     
     private Collider2D[] colliders; // alle Collider die der Gegner hat
@@ -27,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth > 0)
         { 
-           //anim.SetTrigger("hit");
+           anim.SetTrigger("hit");
         }
         else
         {
@@ -37,13 +38,14 @@ public class EnemyHealth : MonoBehaviour
                 isDead = true;
 
                 DisableColliders();
-                //anim.SetTrigger("die");
+                anim.SetTrigger("die");
+                npcContainer.GetComponent<NavMeshAgent>().enabled = false;
                 StartCoroutine(RemoveAfterDeath()); //Eine Coroutine ist eine Funktion, die über mehrere Frames hinweg ausgeführt wird. 
             }
         }
     }
 
-    private void DisableColliders()
+    public void DisableColliders()
     {
         //deaktiviert alle Collider des Gegners auf ein Mal
         foreach (var collider in colliders) //Für jedes Element im Array colliders (was jeweils ein Collider2D ist) wird der Code innerhalb der Schleife ausgeführt, wobei das aktuelle Element als collider bezeichnet wird.
@@ -51,9 +53,9 @@ public class EnemyHealth : MonoBehaviour
             collider.enabled = false;
         }
     }
-    private IEnumerator RemoveAfterDeath()
+    public IEnumerator RemoveAfterDeath()
     {
-        yield return new WaitForSeconds(1.5f); // Warten für 1,5 Sekunden
+        yield return new WaitForSeconds(15f); // Warten für 1,5 Sekunden
         Destroy(gameObject);
     }
     

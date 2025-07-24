@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 44e9fd2d7289d4a4d95a54626c229978
+guid: 9310840f0b6bbfe4a8c51aa73a436c0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2642647103821032587
-    second: maptry_0
+      213: -8275502208090371910
+    second: Dirt_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: maptry_0
+      name: Dirt_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1190
-        height: 1080
+        width: 1806
+        height: 1218
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 573580ed57e635bd0800000000000000
-      internalID: -2642647103821032587
+      spriteID: ab800d45692872d80800000000000000
+      internalID: -8275502208090371910
       vertices: []
       indices: 
       edges: []

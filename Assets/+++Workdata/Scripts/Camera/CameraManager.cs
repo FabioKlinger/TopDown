@@ -20,14 +20,14 @@ public class CameraManager : MonoBehaviour
     }
 
     public void SetNewCamera(CinemachineCamera newCamera, Vector3 newPos)
-    {
-        //ResetCurrentCamera(); // Reset old camera
-        newPos.z = -10;
-        newCamera.transform.position = newPos;
+    {        
+        ResetCurrentCamera();
+
         newCamera.Priority.Value = 10;
         newCamera.Follow = player;
-
-        currentCamera = newCamera; // set new camera
+        newCamera.PreviousStateIsValid = false;
+        
+        currentCamera = newCamera;
     }
 
     public void ResetCurrentCamera()
