@@ -15,11 +15,17 @@ public class PlayerInformation : MonoBehaviour
     [Header("Ui")]
     [SerializeField] private Image healthBar;
 
+    [SerializeField] private GameObject deathMenu;
+
     [SerializeField] private float healthBarSpeed = .3f;
     
     [Header("Events")] 
     [SerializeField] UnityEvent OnDeath;
     [SerializeField] UnityEvent OnHeal;
+
+    public UiManager ui;
+
+    public Button firstDeath;
     //private Player
 
     //private ColorSpriteSetter[] _colorSpriteSetter;
@@ -45,6 +51,13 @@ public class PlayerInformation : MonoBehaviour
         {
             OnDeath?.Invoke();
             currentHealth = 0;
+            
+            if (deathMenu != null)
+            {
+                deathMenu.SetActive(true);
+                Time.timeScale = 0f;
+                ui.SelectButton(firstDeath);
+            }
         }
 
         float targetFillAmount = (float)currentHealth / maxHealth;

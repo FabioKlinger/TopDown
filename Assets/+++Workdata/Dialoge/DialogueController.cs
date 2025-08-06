@@ -32,7 +32,11 @@ public class DialogueController : MonoBehaviour
     [Header("Avatar")] 
     [SerializeField] private Sprite avatar_player01;
     [SerializeField] private Sprite avatar_witch;
-   
+    [SerializeField] private Sprite avatar_emeritus;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip continueDialogueSound;
+    [SerializeField] private AudioSource audioSource;
     #endregion
 
     private Story inkStory;
@@ -104,6 +108,12 @@ public class DialogueController : MonoBehaviour
 
     private void ContinueDialogue()
     {
+        if (continueDialogueSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(continueDialogueSound);
+        }
+
+        
         if (IsAtEnd())
         {
             CloseDialogue();
@@ -216,6 +226,10 @@ public class DialogueController : MonoBehaviour
 
             case "witch":
                 return avatar_witch;
+                break;
+            
+            case "emeritus":
+                return avatar_emeritus;
                 break;
             
             
