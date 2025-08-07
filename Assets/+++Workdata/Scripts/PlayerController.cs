@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public static readonly int Hash_ActionTrigger = Animator.StringToHash("ActionTrigger");
     public static readonly int Hash_ActionId = Animator.StringToHash("ActionId");
     
+    public GameObject mapObject;
     #region Inspektor Variables
     [Header("Player States")]
     public PlayerDir playerDir = PlayerDir.Down;
@@ -45,10 +46,6 @@ public class PlayerController : MonoBehaviour
     private InputAction interactAction;
 
     private InputAction attackAction;
-    private InputAction pickaxeAction;
-    private InputAction axeAction;
-    private InputAction canAction;
-    private InputAction bowAction;
     private InputAction inventoryAction;
     
     private Rigidbody2D rb;
@@ -57,10 +54,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMoveInput;
     private bool isRolling;
     private bool isAttacking;
-    private bool isPickaxe;
-    private bool isAxe;
-    private bool isCan;
-    private bool isBow;
     public bool autoMovement = false;
     
 
@@ -76,10 +69,6 @@ public class PlayerController : MonoBehaviour
         moveAction = inputActions.Player.Move;
         rollAction = inputActions.Player.Roll;
         attackAction = inputActions.Player.Attack;
-        pickaxeAction = inputActions.Player.Pickaxe;
-        axeAction = inputActions.Player.Axe;
-        canAction = inputActions.Player.Can;
-        bowAction = inputActions.Player.Bow;
         interactAction = inputActions.Player.Interact;
         inventoryAction = inputActions.Player.Inventory;
     }
@@ -94,14 +83,6 @@ public class PlayerController : MonoBehaviour
         
         attackAction.performed += AttackInput;
         
-        pickaxeAction.performed += PickaxeInput;
-        
-        axeAction.performed += AxeInput;
-        
-        canAction.performed += CanInput;
-        
-        bowAction.performed += BowInput;
-        
         interactAction.performed += Interact;
         
         inventoryAction.performed += InventoryInput;
@@ -111,6 +92,17 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (mapObject != null)
+            {
+                mapObject.SetActive(!mapObject.activeSelf);
+            }
+        }
     }
 
     private void LateUpdate()
@@ -129,14 +121,6 @@ public class PlayerController : MonoBehaviour
         rollAction.performed -= RollInput;
 
         attackAction.performed -= AttackInput;
-        
-        pickaxeAction.performed -= PickaxeInput;
-        
-        axeAction.performed -= AxeInput;
-        
-        canAction.performed -= CanInput;
-        
-        bowAction.performed -= BowInput;
         
         interactAction.performed -= Interact;
         
@@ -286,54 +270,7 @@ void AttackInput(InputAction.CallbackContext context)
     }
     
     #endregion
-    void PickaxeInput(InputAction.CallbackContext context)
-    {
-        if (isPickaxe) return;
 
-        isPickaxe = true;
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].SetTrigger(Hash_ActionTrigger);
-            anim[i].SetInteger(Hash_ActionId, 3);
-        }
-    }
-    
-    void AxeInput(InputAction.CallbackContext context)
-    {
-        if (isAxe) return;
-
-        isAxe = true;
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].SetTrigger(Hash_ActionTrigger);
-            anim[i].SetInteger(Hash_ActionId, 4);
-        }
-    }
-    
-    void CanInput(InputAction.CallbackContext context)
-    {
-        if (isCan) return;
-
-        isCan = true;
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].SetTrigger(Hash_ActionTrigger);
-            anim[i].SetInteger(Hash_ActionId, 5);
-        }
-    }
-    
-    void BowInput(InputAction.CallbackContext context)
-    {
-        if (isBow) return;
-
-        isBow = true;
-        for (int i = 0; i < anim.Length; i++)
-        {
-            anim[i].SetTrigger(Hash_ActionTrigger);
-            anim[i].SetInteger(Hash_ActionId, 6);
-        }
-    }
-    
     void Movement()
     {
         if (isRolling) return;
@@ -451,25 +388,7 @@ void AttackInput(InputAction.CallbackContext context)
         isAttacking = false;
     }
 
-    public void EndPickaxe()
-    {
-        isPickaxe = false;
-    }
     
-    public void EndAxe()
-    {
-        isAxe = false;
-    }
-    
-    public void EndCan()
-    {
-        isCan = false;
-    }
-    
-    public void EndBow()
-    {
-        isBow = false;
-    }
     public Vector2 GetMoveInput()
     {
         return lastMoveInput;
