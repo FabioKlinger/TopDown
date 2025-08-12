@@ -21,6 +21,8 @@ public class UiManager : MonoBehaviour
 
     [Header("Loading")] 
     [SerializeField]private Slider loadingSlider;
+    public Animator fadeAnimator; 
+    public GameObject fadeObject; 
     
     [Header("Options Menu")] 
     [SerializeField] private GameObject firstSelectedOption;
@@ -87,9 +89,17 @@ public class UiManager : MonoBehaviour
     #region Loading
     public void LoadLevelBtn(int levelToLoad)
     {
-        Time.timeScale = 1f;  
+        Time.timeScale = 1f;
+        StartCoroutine(FadeAndLoad(levelToLoad));
+    }
+
+    IEnumerator FadeAndLoad(int levelToLoad)
+    {
+        fadeObject.SetActive(true);
+        fadeAnimator.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(fadeAnimator.GetCurrentAnimatorStateInfo(0).length);
         loadContainer.SetActive(true);
-        StartCoroutine(LoadLevelASync(levelToLoad));
+        yield return StartCoroutine(LoadLevelASync(levelToLoad));
     }
 
     IEnumerator LoadLevelASync(int levelToLoad)
@@ -105,16 +115,9 @@ public class UiManager : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            // Echten Fortschritt von Unity
             float realProgress = Mathf.Clamp01(loadOperation.progress / 0.9f);
-
-            // Fake-Zeit-Fortschritt
             float fakeProgress = Mathf.Clamp01(timer / fakeDuration);
-
-            // Der Zielwert für den Slider ist das Maximum von beidem (damit man echte Sprünge sieht)
             float targetProgress = Mathf.Max(realProgress, fakeProgress);
-
-            // Smoothly auf targetProgress animieren, damit es nicht sofort springt
             displayedProgress = Mathf.MoveTowards(displayedProgress, targetProgress, Time.deltaTime);
 
             loadingSlider.value = displayedProgress;

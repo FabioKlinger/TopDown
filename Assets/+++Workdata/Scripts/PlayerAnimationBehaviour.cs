@@ -24,10 +24,7 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     public void End_Rh_SwordAttack()
     {
         playerController.EndAttacking();
-        playerController.EndPickaxe();
-        playerController.EndCan();
-        playerController.EndAxe();
-        playerController.EndBow();
+        
         sword_rh.SetActive(false);
     }
     
@@ -44,11 +41,9 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     
     public void End_Rh_PickaxeAttack()
     {
-        playerController.EndPickaxe();
+        
         playerController.EndAttacking();
-        playerController.EndCan();
-        playerController.EndAxe();
-        playerController.EndBow();
+        
         pickaxe.SetActive(false);
     }
     
@@ -65,11 +60,9 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     
     public void End_Rh_AxeAttack()
     {
-        playerController.EndAxe();
-        playerController.EndPickaxe();
+       
         playerController.EndAttacking();
-        playerController.EndCan();
-        playerController.EndBow();
+        
         axe.SetActive(false);
     }
     
@@ -86,11 +79,9 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     
     public void End_Rh_Can()
     {
-        playerController.EndCan();
-        playerController.EndAxe();
-        playerController.EndPickaxe();
+        
         playerController.EndAttacking();
-        playerController.EndBow();
+        
         can.SetActive(false);
     }
     
@@ -107,10 +98,7 @@ public class PlayerAnimationBehaviour : MonoBehaviour
     
     public void End_Rh_Bow()
     {
-        playerController.EndBow();
-        playerController.EndCan();
-        playerController.EndAxe();
-        playerController.EndPickaxe();
+        
         playerController.EndAttacking();
         bow.SetActive(false);
     }
