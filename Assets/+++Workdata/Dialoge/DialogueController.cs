@@ -31,8 +31,8 @@ public class DialogueController : MonoBehaviour
 
     [Header("Avatar")] 
     [SerializeField] private Sprite avatar_player01;
-    [SerializeField] private Sprite avatar_witch;
-    [SerializeField] private Sprite avatar_emeritus;
+    [SerializeField] private Sprite avatar_demi;
+    
     
     [Header("Audio")]
     [SerializeField] private AudioClip continueDialogueSound;
@@ -224,13 +224,11 @@ public class DialogueController : MonoBehaviour
                 return avatar_player01;
                 break;
 
-            case "witch":
-                return avatar_witch;
+            case "demi":
+                return avatar_demi;
                 break;
             
-            case "emeritus":
-                return avatar_emeritus;
-                break;
+            
             
             
             default:

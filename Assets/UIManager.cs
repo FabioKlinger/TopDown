@@ -18,11 +18,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject optionsMenuContainer;
     [SerializeField] private GameObject loadContainer;
     //....
-
-    [Header("Loading")] 
-    [SerializeField]private Slider loadingSlider;
-    public Animator fadeAnimator; 
-    public GameObject fadeObject; 
+    public GameObject fadePanel;
     
     [Header("Options Menu")] 
     [SerializeField] private GameObject firstSelectedOption;
@@ -87,48 +83,17 @@ public class UiManager : MonoBehaviour
 
     
     #region Loading
-    public void LoadLevelBtn(int levelToLoad)
+    public void LoadLevel(int levelToLoad)
     {
-        Time.timeScale = 1f;
-        StartCoroutine(FadeAndLoad(levelToLoad));
+        Time.timeScale = 1f;  
+        StartCoroutine(LoadLevelCoroutine(levelToLoad));
     }
-
-    IEnumerator FadeAndLoad(int levelToLoad)
+    
+    private IEnumerator LoadLevelCoroutine(int levelToLoad)
     {
-        fadeObject.SetActive(true);
-        fadeAnimator.SetTrigger("FadeIn");
-        yield return new WaitForSeconds(fadeAnimator.GetCurrentAnimatorStateInfo(0).length);
-        loadContainer.SetActive(true);
-        yield return StartCoroutine(LoadLevelASync(levelToLoad));
-    }
-
-    IEnumerator LoadLevelASync(int levelToLoad)
-    {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
-        loadOperation.allowSceneActivation = false;
-
-        float timer = 0f;
-        float fakeDuration = 2f;
-        float displayedProgress = 0f;
-
-        while (!loadOperation.isDone)
-        {
-            timer += Time.deltaTime;
-
-            float realProgress = Mathf.Clamp01(loadOperation.progress / 0.9f);
-            float fakeProgress = Mathf.Clamp01(timer / fakeDuration);
-            float targetProgress = Mathf.Max(realProgress, fakeProgress);
-            displayedProgress = Mathf.MoveTowards(displayedProgress, targetProgress, Time.deltaTime);
-
-            loadingSlider.value = displayedProgress;
-
-            if (displayedProgress >= 1f && realProgress >= 1f)
-            {
-                loadOperation.allowSceneActivation = true;
-            }
-
-            yield return null;
-        }
+        fadePanel.SetActive(true);       
+        yield return new WaitForSeconds(3f); 
+        SceneManager.LoadScene(levelToLoad); 
     }
     #endregion 
 
