@@ -22,7 +22,7 @@ public class PlayerSounds : MonoBehaviour
     {
         PlayRandomSound(itemSound); // Grass walk sound
     }
-    public void atttackStepSound() // Plays a random walk step sound based on the ground type
+    public void attackStepSound() // Plays a random walk step sound based on the ground type
     {
         PlayRandomSound(attackSound); // Grass walk sound
     }
